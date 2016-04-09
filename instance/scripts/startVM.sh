@@ -1,4 +1,4 @@
-
+set -e
 containerId=`docker run -d -P eg_sshd`
 echo $containerId
 
@@ -10,3 +10,6 @@ name=$(echo $name | cut -d '/' -f 2)
 echo $name
 
 echo "root:$name" | docker exec -i $containerId chpasswd -
+
+echo "Done"
+
