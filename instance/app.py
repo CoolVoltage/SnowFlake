@@ -1,5 +1,6 @@
 from flask import Flask
 
+import subprocess
 from scripts import idleness
 
 app = Flask(__name__)
@@ -14,7 +15,16 @@ def idle():
     return str(is_idle)
 
 
+@app.route("/stopVM/<instance_id>")
+def stopVM(instance_id):
+    stop_cmd = "sh ./scripts/stopVM {0}".format(instance_id)
+    stop_op = subprocess.Popen([stop_cmd], shell=True, stdout=subprocess.PIPE).stdout.read()
+    if "Done" in stop_op:
+        return str(True)
+    else:
+        return str(False)
 
+    
 if __name__ == "__main__":
     app.debug = True
     
