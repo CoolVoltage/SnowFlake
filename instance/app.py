@@ -1,5 +1,6 @@
 from flask import Flask
 
+import json
 import subprocess
 from scripts import idleness
 
@@ -31,11 +32,17 @@ def startVM():
     start_op = subprocess.Popen([start_cmd], shell=True, stdout=subprocess.PIPE).stdout.read()
     print start_op
     if "Done" in start_op:
-        return str(start_op.split()[0:-1])
+        start_op = start_op.split()
+        resp = {}
+        resp['container_id'] = start_op[0]
+        resp['port'] = start_op[1]
+        resp['password'] = start_op[2]
+        return json.dumps(resp)
     else:
         return "False"
 
+
 if __name__ == "__main__":
     app.debug = True
-    
     app.run(host="0.0.0.0", port=8000)
+
