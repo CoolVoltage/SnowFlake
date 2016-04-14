@@ -54,7 +54,21 @@ def pauseVM(instance_id):
     resp = {'success': False}
     if "Done" in pause_op:
         pause_op = pause_op.split()
+        resp['success'] = True
         resp['image_id'] = pause_op[0]
+    return json.dumps(resp)
+
+
+@app.route("/resumeVM/<image_id>")
+def resumeVM(image_id):
+    resume_cmd = "bash ./scripts/resumeVM.sh {0}".format(image_id)
+    resume_op = subprocess.Popen([resume_cmd], shell=True, stdout=subprocess.PIPE).stdout.read()
+    resp = {'success': False}
+    if "Done" in resume_op:
+        resume_op = resume_op.split()
+        resp['success'] = True
+        resp['instance_id'] = resume_op[0]
+        resp['port'] = resume_op[1]
     return json.dumps(resp)
 
 
