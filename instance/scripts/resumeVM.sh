@@ -1,6 +1,6 @@
 extension=".tar"
 
-out1=$(sh getftp.sh $1$extension)
+out1=$(sh ./scripts/getftp.sh $1$extension)
 
 directory="/tmp/"
 

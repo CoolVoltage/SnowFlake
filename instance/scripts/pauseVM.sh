@@ -7,9 +7,9 @@ directory="/tmp/"
 
 docker save -o $directory$imageId$extension $imageId
 
-out1=$(sh putftp.sh $imageId$extension)
+out1=$(sh ./scripts/putftp.sh $imageId$extension)
 
-out2=$(sh stopVM.sh $1)
+out2=$(sh ./scripts/stopVM.sh $1)
 
 out3=$(docker rmi $imageId)
 
