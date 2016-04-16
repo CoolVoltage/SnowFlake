@@ -6,9 +6,12 @@ from scripts import idleness
 
 app = Flask(__name__)
 
+config = {'central_ip':'104.236.55.35'}
+
 @app.route("/")
 def hello():
     return "Hello World!"
+
 
 @app.route("/idle")
 def idle():
@@ -25,7 +28,8 @@ def idle():
 @app.route("/stopVM/<instance_id>")
 def stopVM(instance_id):
     stop_cmd = "sh ./scripts/stopVM.sh {0}".format(instance_id)
-    stop_op = subprocess.Popen([stop_cmd], shell=True, stdout=subprocess.PIPE).stdout.read()
+    stop_op = subprocess.Popen(
+        [stop_cmd], shell=True, stdout=subprocess.PIPE).stdout.read()
     resp = {'success': False}
     if "Done" in stop_op:
         resp['success'] = True
@@ -35,9 +39,10 @@ def stopVM(instance_id):
 @app.route("/startVM")
 def startVM():
     start_cmd = "sh ./scripts/startVM.sh"
-    start_op = subprocess.Popen([start_cmd], shell=True, stdout=subprocess.PIPE).stdout.read()
+    start_op = subprocess.Popen(
+        [start_cmd], shell=True, stdout=subprocess.PIPE).stdout.read()
     print start_op
-    resp = {'success':False}
+    resp = {'success': False}
     if "Done" in start_op:
         start_op = start_op.split()
         resp['success'] = True
@@ -49,8 +54,9 @@ def startVM():
 
 @app.route("/pauseVM/<instance_id>")
 def pauseVM(instance_id):
-    pause_cmd = "bash ./scripts/pauseVM.sh {0}".format(instance_id)
-    pause_op = subprocess.Popen([pause_cmd], shell=True, stdout=subprocess.PIPE).stdout.read()
+    pause_cmd = "bash ./scripts/pauseVM.sh {0} {1}".format(instance_id, config['central_ip'])
+    pause_op = subprocess.Popen(
+        [pause_cmd], shell=True, stdout=subprocess.PIPE).stdout.read()
     resp = {'success': False}
     if "Done" in pause_op:
         pause_op = pause_op.split()
@@ -61,8 +67,9 @@ def pauseVM(instance_id):
 
 @app.route("/resumeVM/<image_id>")
 def resumeVM(image_id):
-    resume_cmd = "bash ./scripts/resumeVM.sh {0}".format(image_id)
-    resume_op = subprocess.Popen([resume_cmd], shell=True, stdout=subprocess.PIPE).stdout.read()
+    resume_cmd = "bash ./scripts/resumeVM.sh {0} {1}".format(image_id, config['central_ip'])
+    resume_op = subprocess.Popen(
+        [resume_cmd], shell=True, stdout=subprocess.PIPE).stdout.read()
     resp = {'success': False}
     if "Done" in resume_op:
         resume_op = resume_op.split()
@@ -75,4 +82,3 @@ def resumeVM(image_id):
 if __name__ == "__main__":
     app.debug = True
     app.run(host="0.0.0.0", port=8000)
-
