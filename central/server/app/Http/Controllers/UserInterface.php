@@ -11,8 +11,12 @@ use App\VirtualMachines;
 
 class UserInterface extends Controller
 {
-    public function userDetails($id){
-    	
+	
+
+    public function userDetails(){
+    
+    	$id = 1;
+
     	$instances = Instance::where('owner',$id)->get();
 
     	$virtualMachines = VirtualMachines::where('owner',$id);
@@ -23,7 +27,9 @@ class UserInterface extends Controller
     		]);
     }
 
-    public function assignInstance($id){
+    public function assignInstance(){
+
+    	$id = 1;
 
     	$instance = Instance::where('owner','admin')->get()->first();
 
@@ -41,6 +47,42 @@ class UserInterface extends Controller
 
 	    	return response()->json([
 	    		'instance'=>$instance
+	    		]);
+
+    	}
+
+    }
+
+    public function removeInstance($instaceId){
+
+    	$id = 1;
+
+    	$instance = Instance::where('id',$instaceId)->get()->first();
+
+    	if(is_null($instance)){
+
+			return response()->json([
+    			'error'=>'No Instance'
+    			]);    		
+
+    	}
+    	elseif ($instance->owner != $id) {
+			
+			return response()->json([
+    			'error'=>"Unauth deletion"
+    			]);
+
+    	}
+    	else{
+
+    		$instance->owner = "admin";
+
+    		$instance->save();
+
+    		$message = "Your instance with id ".$instaceId." has been deleted";
+
+	    	return response()->json([
+	    		'message'=> $message
 	    		]);
 
     	}

@@ -1,5 +1,5 @@
 <?php
-
+use App\Instance;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -12,12 +12,20 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    /*$instance = new Instance;
+    $instance->ip = "127.0.0.1";
+    $instance->password = "oombu";
+
+    $instance->save();*/
 });
 Route::group(['prefix'=>'api'],function(){
 
-	Route::get('{id}','UserInterface@userDetails');
+	Route::get('details','UserInterface@userDetails');
 
-	Route::get('{id}/assignInstance','UserInterface@assignInstance');
+	Route::get('assignInstance','UserInterface@assignInstance');
+
+	Route::get('removeInstance/{instanceId}','UserInterface@removeInstance');
+
+
 
 });
