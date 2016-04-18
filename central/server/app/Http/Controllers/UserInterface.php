@@ -28,6 +28,14 @@ class UserInterface extends Controller
 
 	}
 
+	public function logoutUser(){
+
+		return response()->json([
+			'message'=>'success'
+			]);
+		
+	}
+
     public function userDetails(){
     
     	$id = 1;
@@ -108,6 +116,13 @@ class UserInterface extends Controller
     public function assignVM(){
 
     	$id = 1;
+
+    }
+
+    public function removeVM($vmId){
+
+    	$id = 1;
+
 
     }
 

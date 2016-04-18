@@ -28,8 +28,12 @@ Route::group(['prefix'=>'api'],function(){
 
 	Route::get('assignVM','UserInterface@assignVM');
 
+	Route::get('removeVM','UserInterface@removeVM');
+
 	Route::post('loginUser','UserInterface@loginUser');
 
 	Route::get('isUserLoggedIn','UserInterface@isUserLoggedIn');
+
+	Route::get('logoutUser','UserInterface@logoutUser');
 
 });
