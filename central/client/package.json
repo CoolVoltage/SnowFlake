@@ -1,0 +1,19 @@
+{
+  "name": "snowflake-central-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ssundarraj",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-includes": "^0.5.4"
+  },
+  "dependencies": {
+    "semantic-ui": "^2.1.8"
+  }
+}
