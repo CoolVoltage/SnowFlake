@@ -66,6 +66,19 @@ class UserInterface extends Controller
 
     	}
 
+    	$virtualMachinesRunning = VirtualMachines::where('ip',$instance->ip)->count();
+
+    	if($virtualMachinesRunning != 0){
+    		
+    		$result = Monitor::pauseVMs($instance);
+
+    		if($result != "success")
+    			return response()->json([
+    				'message'=>'Error - Pausing VMs'
+    				]);
+
+    	}
+
         $instance->owner = $id;
 
 	    $instance->save();
