@@ -12,6 +12,20 @@ use App\VirtualMachines;
 class UserInterface extends Controller
 {
 	
+	public function admin(){
+
+		$instances = Instance::all();
+
+		$virtualMachines = VirtualMachines::all();
+
+		return response()->json([
+			'instances'=>$instances,
+			'virtualMachines'=>$virtualMachines,
+			'message'=>'success'
+			]);
+
+	}
+
 	public function loginUser(Request $request){
 
 		return response()->json([

@@ -36,4 +36,6 @@ Route::group(['prefix'=>'api'],function(){
 
 	Route::get('logoutUser','UserInterface@logoutUser');
 
+	Route::get('admin','UserInterface@admin');
+
 });
