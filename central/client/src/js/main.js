@@ -1,6 +1,6 @@
 $(document).ready(function() {
     // Checking is user is already logged in
-    if(location.pathname != "/login.html"){
+    if(location.pathname != "/login.html" || location.pathname != "/admin.html"){
         $.ajax({
             url: "http://localhost:8000/index.html",
             context: document.body
