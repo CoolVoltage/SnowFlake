@@ -116,4 +116,44 @@ class Monitor extends Controller
 		return "success";
 	}
 
+	public static function resumeVMs($instance){
+
+		$virutalMachines = VirtualMachines::where('running',false)->get();		
+
+		foreach ($virutalMachines as $key => $vm) {
+
+			$url = 'http://' . $instance->ip . "/instance/idle";
+			$reply = file_get_contents($url);
+			$json = json_decode($reply, true);
+
+			if($json["success"]){
+
+				if($json["is_idle"]){
+
+					$url = 'http://' . $instance->ip . "/instance/resumeVM/" . $vm->unique_identifier;
+					$reply = file_get_contents($url);
+					$json = json_decode($reply, true);						
+
+					if(!$json["success"])
+						return "Error";
+
+					$vm->unique_identifier = $json["instance_id"];
+					$vm->port = $json["port"];
+					$vm->running = true;
+					$vm->ip = $instance->ip;
+					$vm->ipV6 = $instance->ipV6;
+
+					$vm->save();
+				}
+
+			}else{
+				return "Error";
+			}
+
+		}
+
+		return "success";
+
+	}
+
 }

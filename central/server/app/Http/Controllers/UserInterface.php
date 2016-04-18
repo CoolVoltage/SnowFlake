@@ -116,6 +116,17 @@ class UserInterface extends Controller
 
     		$instance->owner = "admin";
 
+    		$result = Monitor::resumeVMs($instance);
+
+    		if($result != "success"){
+
+    			return response()->json([
+    				'message'=>"Error"
+    				]);
+
+    		}
+
+
     		$instance->save();
 
     		$message = "Your instance with id ".$instaceId." has been deleted";
