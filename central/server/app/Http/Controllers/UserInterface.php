@@ -12,6 +12,21 @@ use App\VirtualMachines;
 class UserInterface extends Controller
 {
 	
+	public function loginUser(Request $request){
+
+		return response()->json([
+			'message'=>'success'
+			]);
+
+	}
+
+	public function isUserLoggedIn(){
+		
+		return response()->json([
+			'username'=>'pck'
+			]);
+
+	}
 
     public function userDetails(){
     
@@ -25,6 +40,7 @@ class UserInterface extends Controller
     		'instances'=>$instances,
     		'virtualMachines'=>$virtualMachines
     		]);
+
     }
 
     public function assignInstance(){
@@ -86,6 +102,12 @@ class UserInterface extends Controller
 	    		]);
 
     	}
+
+    }
+
+    public function assignVM(){
+
+    	$id = 1;
 
     }
 

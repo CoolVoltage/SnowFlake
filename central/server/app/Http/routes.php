@@ -26,6 +26,10 @@ Route::group(['prefix'=>'api'],function(){
 
 	Route::get('removeInstance/{instanceId}','UserInterface@removeInstance');
 
+	Route::get('assignVM','UserInterface@assignVM');
 
+	Route::post('loginUser','UserInterface@loginUser');
+
+	Route::get('isUserLoggedIn','UserInterface@isUserLoggedIn');
 
 });
