@@ -82,7 +82,25 @@ class UserInterface extends Controller
 
     	if($count != 1){
 
-    		// Choose instance using Algo
+    		$instances = Instance::where('owner','admin')->get();
+
+    		$minCount = 100;
+    		$chosenOne;
+
+    		foreach ($instances as $key => $instance) {
+    			
+				$virtualMachinesRunning = VirtualMachines::where('ip',$instance->ip)->count();
+
+				if($minCount > $virtualMachinesRunning){
+
+					$minCount = $virtualMachinesRunning;
+					$chosenOne = $instance;
+
+				}		
+
+    		}
+    		
+    		$instance = chosenOne;
     		
     	}else{
 
