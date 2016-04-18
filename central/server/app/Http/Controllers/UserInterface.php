@@ -33,7 +33,7 @@ class UserInterface extends Controller
 		return response()->json([
 			'message'=>'success'
 			]);
-		
+
 	}
 
     public function userDetails(){
@@ -42,11 +42,12 @@ class UserInterface extends Controller
 
     	$instances = Instance::where('owner',$id)->get();
 
-    	$virtualMachines = VirtualMachines::where('owner',$id);
+    	$virtualMachines = VirtualMachines::where('owner',$id)->get();
 
     	return response()->json([
     		'instances'=>$instances,
-    		'virtualMachines'=>$virtualMachines
+    		'virtualMachines'=>$virtualMachines,
+    		'message'=>'success'
     		]);
 
     }
@@ -60,7 +61,7 @@ class UserInterface extends Controller
     	if(is_null($instance)){
 
     		return response()->json([
-    			'error'=>'All Full'
+    			'message'=>'All Full'
     			]);
 
     	}else{
@@ -70,7 +71,8 @@ class UserInterface extends Controller
 	    	$instance->save();
 
 	    	return response()->json([
-	    		'instance'=>$instance
+	    		'instance'=>$instance,
+	    		'message'=>'success'
 	    		]);
 
     	}
@@ -86,14 +88,14 @@ class UserInterface extends Controller
     	if(is_null($instance)){
 
 			return response()->json([
-    			'error'=>'No Instance'
+    			'message'=>'No Instance'
     			]);    		
 
     	}
     	elseif ($instance->owner != $id) {
 			
 			return response()->json([
-    			'error'=>"Unauth deletion"
+    			'message'=>"Unauth deletion"
     			]);
 
     	}
@@ -106,7 +108,8 @@ class UserInterface extends Controller
     		$message = "Your instance with id ".$instaceId." has been deleted";
 
 	    	return response()->json([
-	    		'message'=> $message
+	    		'info'=> $message,
+	    		'message'=>'success'
 	    		]);
 
     	}
@@ -117,12 +120,33 @@ class UserInterface extends Controller
 
     	$id = 1;
 
+    	$vm = Monitor::getVM();
+
+    	if(is_null($vm)){
+
+	    	return response()->json([
+	    		'message'=>'Cloud is full.'
+	    		]);
+
+    	}else{
+			
+    		$vm->owner = $id;
+    		$vm->save();
+
+    		return response()->json([
+		    		'virtualMachine'=>$vm,
+		    		'message'=>'success'
+		    		]);
+
+    	}
+
     }
 
     public function removeVM($vmId){
 
     	$id = 1;
 
+    	
 
     }
 
