@@ -56,13 +56,23 @@ class UserInterface extends Controller
 
     	$id = 1;
 
-    	$instance = Instance::where('owner','admin')->get()->first();
+    	$count = Instance::where('owner','admin')->count();
 
-    	if(is_null($instance)){
+    	if($count == 0){
 
     		return response()->json([
     			'message'=>'All Full'
     			]);
+
+    	}
+
+    	if($count != 1){
+
+    		// Choose instance using Algo
+    		
+    	}else{
+
+    		$instance = Instance::where('owner','admin')->get()->first();
 
     	}
 
