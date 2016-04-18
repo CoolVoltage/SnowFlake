@@ -64,18 +64,18 @@ class UserInterface extends Controller
     			'message'=>'All Full'
     			]);
 
-    	}else{
-
-        	$instance->owner = $id;
-
-	    	$instance->save();
-
-	    	return response()->json([
-	    		'instance'=>$instance,
-	    		'message'=>'success'
-	    		]);
-
     	}
+
+        $instance->owner = $id;
+
+	    $instance->save();
+
+	    return response()->json([
+	    	'instance'=>$instance,
+	    	'message'=>'success'
+	    	]);
+
+
 
     }
 
@@ -146,7 +146,11 @@ class UserInterface extends Controller
 
     	$id = 1;
 
-    	
+    	$message = Monitor::removeVM($vmId);
+
+    	return response()->json([
+		    		'message'=>$message
+		    		]);
 
     }
 

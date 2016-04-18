@@ -28,7 +28,7 @@ Route::group(['prefix'=>'api'],function(){
 
 	Route::get('assignVM','UserInterface@assignVM');
 
-	Route::get('removeVM','UserInterface@removeVM');
+	Route::get('removeVM/{vmId}','UserInterface@removeVM');
 
 	Route::post('loginUser','UserInterface@loginUser');
 

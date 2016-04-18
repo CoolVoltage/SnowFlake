@@ -62,11 +62,36 @@ class Monitor extends Controller
 		$vm->unique_identifier = $json["container_id"];
 		$vm->port = $json["port"];
 		$vm->running = true;
-		$vm->ip = $theChosenOne->ipV6;
+		$vm->ip = $theChosenOne->ip;
+		$vm->ipV6 = $theChosenOne->ipV6;
 		$vm->password = $json["password"];
 
 		return $vm;	
 		
+	}
+
+	public static function removeVM($vmId){
+
+		$vm = VirtualMachines::where('id',$vmId)->get()->first();
+		
+		if(is_null($vm)){
+			return "Error - No vm exist";
+		}
+
+		if($vm->running){
+
+			$url = 'http://' . $vm->ip . "/instance/stopVM/" . $vm->unique_identifier;
+			$reply = file_get_contents($url);
+			$json = json_decode($reply, true);		
+
+			if(!$json["success"])
+				return "Error";
+
+		}
+
+		$vm->delete();
+		return "success";
+
 	}
 
 }
