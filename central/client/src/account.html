@@ -1,1 +1,39 @@
 include "partials/header.html"
+    <script src="js/account.js"></script>
+
+    <div class="ui padded text container clearing segment" style="margin-top:5%;">
+        <table class="ui celled striped table">
+            <thead>
+                <tr><th colspan="3">
+                    Full Instances
+                  </th>
+                </tr>
+                <tr>
+                    <th>IP Address</th>
+                    <th>Creation Time</th>
+                    <th>Password</th>
+                </tr>
+            </thead>
+            <tbody id="instanceTableBody">
+                
+            </tbody>
+        </table>
+        <table class="ui celled striped table">
+            <thead>
+                <tr><th colspan="5">
+                    Preemtable VMs
+                  </th>
+                </tr>
+                <tr>
+                    <th>Unique ID</th>
+                    <th>Running?</th>
+                    <th>IP</th>
+                    <th>Created At</th>
+                    <th>Password</th>
+                </tr>
+            </thead>
+            <tbody id="preemtableTableBody">
+                
+            </tbody>
+        </table>
+    </div>
