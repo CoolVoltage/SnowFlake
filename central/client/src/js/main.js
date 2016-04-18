@@ -1,16 +1,19 @@
 $(document).ready(function() {
-    console.log("ready");
-    // Checking is user is already logged in
+});
+
+
+function logoutUser(){
     $.ajax({
-        url: "http://localhost:8000/index.html",
+        url: "http://localhost:8000/login.html",
         context: document.body
     }).done(function(data) {
-        data = '{"username1":"pck"}';  // Just for testing
+        data = '{"message":"success"}';  // Just for testing
         data = JSON.parse(data);
-        console.log(data);
-        if(!('username' in data)){
-            // User not logged in
-            window.location = "login.html"
+        if(data['message'] == "success"){
+                    window.location = "login.html"
+        }
+        else{
+            alert("Error!");
         }
     });
-});
+}

@@ -20,7 +20,7 @@ function testLogin(ev){
         url: "http://localhost:8000/login.html",
         context: document.body
     }).done(function(data) {
-        data = '{"message1":"success"}';  // Just for testing
+        data = '{"message":"success"}';  // Just for testing
         data = JSON.parse(data);
         if(data['message'] == "success"){
             window.location = "index.html"
