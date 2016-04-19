@@ -8,6 +8,7 @@ use App\Http\Requests;
 
 use App\Instance;
 use App\VirtualMachines;
+use App\User;
 
 class UserInterface extends Controller
 {
@@ -28,21 +29,55 @@ class UserInterface extends Controller
 
 	public function loginUser(Request $request){
 
+		if($request->session()->has('user')){
+
+			return response()->json([
+				'message'=>"You're already logged in."
+				]);			
+
+		}
+
+		$user = User::where('username',$request->input('username'))
+						->where('password',$request->input('password'))->get()->first();
+
+		if(is_null($user)){
+
+			return response()->json([
+				'message'=>'Error in validation'
+				]);			
+
+		}
+
+		$request->session()->put('user',$user->id);
+
 		return response()->json([
 			'message'=>'success'
 			]);
 
 	}
 
-	public function isUserLoggedIn(){
+	public function isUserLoggedIn(Request $request){
 		
+		if($request->session()->has('user')){
+
+			$user = User::where('id',$request->session()->get('user'))->get()->first();
+
+			return response()->json([
+				'username'=>$user->username,
+				'message'=>'success'
+				]);
+
+		}
+
 		return response()->json([
-			'username'=>'pck'
-			]);
+				'message'=>'No accounts'
+				]);
 
 	}
 
-	public function logoutUser(){
+	public function logoutUser(Request $request){
+
+		$request->session()->forget('user');
 
 		return response()->json([
 			'message'=>'success'
@@ -101,7 +136,7 @@ class UserInterface extends Controller
     		}
     		
     		$instance = chosenOne;
-    		
+
     	}else{
 
     		$instance = Instance::where('owner','admin')->get()->first();
