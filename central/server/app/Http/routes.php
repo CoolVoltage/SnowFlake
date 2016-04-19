@@ -13,8 +13,9 @@ use App\Instance;
 
 Route::get('/', function () {
     /*$instance = new Instance;
-    $instance->ip = "127.0.0.1";
-    $instance->password = "oombu";
+    $instance->ip = "107.170.12.105";
+    $instance->ipV6 = "2604:a880:0:1010::5e5:c001";
+    $instance->password = "SnowFlake123";
 
     $instance->save();*/
 });

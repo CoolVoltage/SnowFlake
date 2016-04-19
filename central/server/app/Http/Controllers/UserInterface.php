@@ -85,9 +85,9 @@ class UserInterface extends Controller
 
 	}
 
-    public function userDetails(){
+    public function userDetails(Request $request){
     
-    	$id = 1;
+    	$id = $request->session()->get('user');
 
     	$instances = Instance::where('owner',$id)->get();
 
@@ -101,9 +101,9 @@ class UserInterface extends Controller
 
     }
 
-    public function assignInstance(){
+    public function assignInstance(Request $request){
 
-    	$id = 1;
+    	$id = $request->session()->get('user');
 
     	$count = Instance::where('owner','admin')->count();
 
@@ -135,7 +135,7 @@ class UserInterface extends Controller
 
     		}
     		
-    		$instance = chosenOne;
+    		$instance = $chosenOne;
 
     	}else{
 
@@ -169,9 +169,9 @@ class UserInterface extends Controller
 
     }
 
-    public function removeInstance($instaceId){
+    public function removeInstance(Request $request,$instaceId){
 
-    	$id = 1;
+    	$id = $request->session()->get('user');
 
     	$instance = Instance::where('id',$instaceId)->get()->first();
 
@@ -217,9 +217,9 @@ class UserInterface extends Controller
 
     }
 
-    public function assignVM(){
+    public function assignVM(Request $request){
 
-    	$id = 1;
+    	$id = $request->session()->get('user');
 
     	$vm = Monitor::getVM();
 
@@ -243,9 +243,9 @@ class UserInterface extends Controller
 
     }
 
-    public function removeVM($vmId){
+    public function removeVM(Request $request){
 
-    	$id = 1;
+    	$id = $request->session()->get('user');
 
     	$message = Monitor::removeVM($vmId);
 
