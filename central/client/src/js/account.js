@@ -28,19 +28,16 @@ $(document).ready(function() {
                 var idCol = document.createElement("td");
                 var runningCol = document.createElement("td");
                 var ipCol = document.createElement("td");
-                var ctCol = document.createElement("td");
                 var passCol = document.createElement("td");
                 var delCol = document.createElement("td");
                 idCol.innerHTML = element['unique_identifier'].substring(0, 16);
                 runningCol.innerHTML = element['running'] ? "Yes" : "No";
                 ipCol.innerHTML = element['ipV6'];
-                ctCol.innerHTML = element['created_at'];
                 passCol.innerHTML = element['password'];
                 delCol.innerHTML = "<button class='ui button red' onclick=delVM(" + element['id'] + ")>Delete</button>";                    
                 instanceRow.appendChild(idCol);
                 instanceRow.appendChild(runningCol);
                 instanceRow.appendChild(ipCol);
-                instanceRow.appendChild(ctCol);
                 instanceRow.appendChild(passCol);
                 instanceRow.appendChild(delCol);
                 document.getElementById('preemtableTableBody').appendChild(instanceRow);
@@ -54,6 +51,8 @@ $(document).ready(function() {
 
 
 function newIntance(){
+    $('.ui.modal').modal('show') ;
+    // $('#loader').css('display', 'block');
     console.log("newIntance");
     $.ajax({
         url: "api/assignInstance",
@@ -69,6 +68,8 @@ function newIntance(){
 }
 
 function newVM(){
+    $('.ui.modal').modal('show') ;
+    // $('#loader').css('display', 'block');
     console.log("newVM");
     $.ajax({
         url: "api/assignVM",
@@ -84,6 +85,8 @@ function newVM(){
 }
 
 function delInstance(instanceId){
+    $('.ui.modal').modal('show') ;
+    // $('#loader').css('display', 'block');
     $.ajax({
         url: "api/removeInstance/" + instanceId ,
     }).done(function(data) {
@@ -98,6 +101,8 @@ function delInstance(instanceId){
 }
 
 function delVM(vmID){
+    $('.ui.modal').modal('show') ;
+    // $('#loader').css('display', 'block');
     $.ajax({
         url: "api/removeVM/" + vmID ,
     }).done(function(data) {
