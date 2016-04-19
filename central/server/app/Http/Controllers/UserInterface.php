@@ -243,7 +243,7 @@ class UserInterface extends Controller
 
     }
 
-    public function removeVM(Request $request){
+    public function removeVM(Request $request,$vmId){
 
     	$id = $request->session()->get('user');
 
