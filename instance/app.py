@@ -19,6 +19,7 @@ def idle():
     try:
         is_idle = idleness.is_idle()
         resp['is_idle'] = is_idle
+        resp['success'] = True
     except:
         pass
     finally:
